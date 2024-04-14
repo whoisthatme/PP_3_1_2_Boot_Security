@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update person</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        form {
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px #ccc;
+            width: 300px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+    </style>
+</head>
+<body>
+<form th:object="${user}" th:action="@{/{id}/edit(id=${user.getId()})}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <label for="age">Age</label>
+    <input type="text" th:field="*{age}" id="age"/>
+    <label for="email">Email</label>
+    <input type="text" th:field="*{email}" id="email"/>
+    <input type="submit" value="Update person"/>
+</form>
+</body>
+</html>

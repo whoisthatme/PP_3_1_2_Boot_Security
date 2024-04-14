@@ -1,11 +1,101 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Spring Security Example</title>
+    <meta charset="UTF-8">
+    <title>List Users</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-<h1>User, welcome spring boot security page!</h1>
-
-
+<h1>USERS</h1>
+<table style="width:100%">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Action</th>
+    </tr>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.age}"></td>
+        <td th:text="${user.email}"></td>
+        <td>
+            <form th:method="POST" th:action="@{/{id}/delete(id=${user.getId()})}">
+                <input type="submit" value="Delete">
+            </form>
+            <a th:href="@{/{id}/edit(id=${user.getId()})}">Edit</a>
+        </td>
+    </tr>
+</table>
+<hr/>
+<h2>CREATE NEW USER</h2>
+<form th:method="POST" th:action="@{/add}" th:object="${newUser}">
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" th:field="*{name}" id="name"/>
+    </div>
+    <div>
+        <label for="age">Age:</label>
+        <input type="text" th:field="*{age}" id="age"/>
+    </div>
+    <div>
+        <label for="email">Email:</label>
+        <input type="text" th:field="*{email}" id="email"/>
+    </div>
+    <div>
+        <input type="submit" value="Create"/>
+    </div>
+</form>
 </body>
 </html>
